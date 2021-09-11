@@ -59,3 +59,4 @@ class FileStorage:
     def close(self):
         """ call reload() method to json"""
         self.reload()
+    

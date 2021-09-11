@@ -1,7 +1,16 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-from models.base_model import BaseModel
 
+from models.base_model import BaseModel, Base
+import models
+import sqlalchemy
+from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from sqlalchemy import Table
+from os import getenv
+from models.amenity import Amenity
+from models.review import Review
 
 class Place(BaseModel):
     """ A class Place that inherits from BaseModel."""
@@ -21,7 +30,7 @@ class Place(BaseModel):
     amenity_ids = []
     _amenities = relationship('Amenity', secondary='place_amenity',
                               viewonly=False, back_populates="place_amenities")
-    if storage_type != 'db':
+    if models.FileStorage != 'db':
         @property
         def reviews(self):
 
@@ -46,8 +55,8 @@ class Place(BaseModel):
             amenity_values = []
             for amenity_id in self.amenity_ids:
                 key = 'Amenity.' + amenity_id
-                if key in FileStorage.__valueects:
-                    amenity_values.append(FileStorage.__valueects[key])
+                if key in models.FileStorage.__valueects:
+                    amenity_values.append(models.FileStorage.__valueects[key])
             return amenity_values
 
         @amenities.setter
@@ -55,5 +64,5 @@ class Place(BaseModel):
             """
             adds an Amenity.id to the attribute amenity_ids
             """
-            if isinstance(value, Amenity):
+            if isinstance(value, Amenity) == True:
                 self.amenity_ids.append(value.id)
