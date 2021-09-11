@@ -38,7 +38,7 @@ def python(text):
     """ function that displays display “python ”
     followed by the value of the text variable """
 
-    return 'python %s' % escape(text.replace('_', ' '))
+    return 'Python %s' % escape(text.replace('_', ' '))
 
 
 if __name__ == "__main__":
